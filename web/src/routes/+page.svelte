@@ -1,3 +1,72 @@
+<script lang="ts">
+    import { onMount } from "svelte";
+
+    //Tags
+    let currentTag:any = null
+    let lastTag: any = false
+    let retailTag: any
+    let diningTag: any
+    let lodgingTag: any
+    let experiencesTag: any
+
+    //Search field
+    let searchField: any
+    let searchTimeout: any
+    let searchString: string
+
+    function updateTags(tag: any) {
+        if(tag === currentTag) {
+            currentTag.classList.toggle('bg-green-900')
+            currentTag.classList.toggle('bg-primary')
+            currentTag.classList.toggle('scale-110')
+            currentTag = ''
+            lastTag = false
+        }
+        else {
+            if(lastTag) {
+
+                currentTag = tag
+                currentTag.classList.toggle('bg-green-900')
+                currentTag.classList.toggle('bg-primary')
+                currentTag.classList.toggle('scale-110')
+
+                lastTag.classList.toggle('bg-green-900')
+                lastTag.classList.toggle('bg-primary')
+                lastTag.classList.toggle('scale-110')
+
+                lastTag = currentTag
+            }
+            else {
+
+                currentTag = tag
+                currentTag.classList.toggle('bg-green-900')
+                currentTag.classList.toggle('bg-primary')
+                currentTag.classList.toggle('scale-110')
+                lastTag = currentTag
+            }
+        }
+        console.log(`tag: ${currentTag?.id}`)
+    }
+
+    function startSearch(tag: any, searchString: string) {
+    console.log(`current tag: ${tag}`)
+    console.log(`search string: ${searchString}`)
+    //Request Business cards that match the search criteria
+    //Each business card should be requested in groups of 12 (pagination)
+    fetch('/api/searchMongo', {method: 'GET'}).then(response => console.log(response))
+    }
+
+    onMount(() => {
+        searchField.addEventListener("input", () => {
+        clearTimeout(searchTimeout) // Clear previous timeout
+
+        // Set a new timeout to call the function after 2 seconds
+        searchTimeout = setTimeout(startSearch, 750)
+        })
+    })
+
+</script>
+
 <div class="w-full h-full flex justify-center flex-col items-center">
 
     <div class="w-[650px] h-[350px] flex justify-center items-end">
@@ -22,30 +91,38 @@
                           </svg>                          
                     </div>
                     <div class="h-full flex-grow">
-                        <input placeholder="Start typing to find businesses" type="text" class="w-full h-full text-[23px] text-darkgray font-mukta appearance-none border-none bg-transparent focus:outline-none focus:ring-0">
+                        <input bind:this={searchField} bind:value={searchString} placeholder={"Start typing to find businesses"} type="text" class="w-full h-full text-[23px] text-darkgray font-mukta appearance-none border-none bg-transparent focus:outline-none focus:ring-0">
                     </div>
                 </div>
             </div>
             <div class="w-full h-1/2 flex items-center">
                 <div class=" h-3/4 w-1/4 py-[3px] px-[7px] ">
-                    <div class="w-full h-full bg-primary rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta">
-                        Retail
-                    </div>
+                    <button class="w-full h-full" on:click={() => {updateTags(retailTag)}}>
+                        <div id="retailTag" bind:this={retailTag} class="w-full h-full bg-primary rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta transition-all duration-100">
+                            Retail
+                        </div>
+                    </button>
                 </div>
                 <div class=" h-3/4 w-1/4 py-[3px] px-[7px] ">
-                    <div class="w-full h-full bg-primary rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta">
-                        Dining
-                    </div>
+                    <button class="w-full h-full" on:click={() => {updateTags(diningTag)}}>
+                        <div id="diningTag" bind:this={diningTag} class="w-full h-full bg-primary rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta transition-all duration-100">
+                            Dining
+                        </div>
+                    </button>
                 </div>
                 <div class=" h-3/4 w-1/4 py-[3px] px-[7px] ">
-                    <div class="w-full h-full bg-primary rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta">
-                        Lodging
-                    </div>
+                    <button class="w-full h-full" on:click={() => {updateTags(lodgingTag)}}>
+                        <div id="lodgingTag" bind:this={lodgingTag} class="w-full h-full bg-primary rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta transition-all duration-100">
+                            Lodging
+                        </div>
+                    </button>
                 </div>
                 <div class=" h-3/4 w-1/4 py-[3px] px-[7px]">
-                    <div class="w-full h-full bg-lime-900 rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta">
-                        Experiences
-                    </div>
+                    <button class="w-full h-full" on:click={() => {updateTags(experiencesTag)}}>
+                        <div id="experiencesTag" bind:this={experiencesTag} class="w-full h-full bg-primary rounded-[13px] text-white text-[20px]  flex items-center justify-center font-mukta transition-all duration-100">
+                            Experiences
+                        </div>
+                    </button>
                 </div>
             </div>
         </div>

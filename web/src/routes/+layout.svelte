@@ -2,7 +2,7 @@
     import "../app.css";
 </script>
 
-<div class="w-screen h-screen bg-white flex flex-col">
+<div class="w-screen h-screen bg-white flex flex-col overflow-x-hidden">
 
   <div class=" static w-full h-[160px] bg-gradient-to-b from-lightGreen via-lightGreen to-white px-4 py-4">
     <div class="w-full h-[60%] flex justify-between">

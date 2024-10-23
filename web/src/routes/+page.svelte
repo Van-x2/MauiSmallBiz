@@ -45,15 +45,15 @@
                 lastTag = currentTag
             }
         }
-        console.log(`tag: ${currentTag?.id}`)
+
     }
 
-    function startSearch(tag: any, searchString: string) {
-    console.log(`current tag: ${tag}`)
-    console.log(`search string: ${searchString}`)
+    function startSearch() {
+
+    const customURL = `/api/searchMongo?tag=${encodeURIComponent(currentTag?.id)}&searchString=${encodeURIComponent(searchString)}`
     //Request Business cards that match the search criteria
     //Each business card should be requested in groups of 12 (pagination)
-    fetch('/api/searchMongo', {method: 'GET'}).then(response => console.log(response))
+    fetch(customURL, {method: 'GET'})
     }
 
     onMount(() => {
@@ -61,7 +61,7 @@
         clearTimeout(searchTimeout) // Clear previous timeout
 
         // Set a new timeout to call the function after 2 seconds
-        searchTimeout = setTimeout(startSearch, 750)
+        searchTimeout = setTimeout(startSearch, 1000)
         })
     })
 

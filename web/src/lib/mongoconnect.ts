@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb"
 import { MONGO_STRING } from "$env/static/private"
 
-let client: MongoClient | null = null
+let client: any | null = null
 
 export async function connectToDatabase() {
     if(client && client.topology?.isConnected()) {

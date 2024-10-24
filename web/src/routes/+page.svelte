@@ -9,12 +9,19 @@
     let lodgingTag: any
     let experiencesTag: any
 
+    let currentPage = 1
+
     //Search field
     let searchField: any
     let searchTimeout: any
-    let searchString: string
+    let searchString: string = ''
+
+    //results
+    let businessCardArray: any = []
 
     function updateTags(tag: any) {
+        businessCardArray = []
+        currentPage = 1
         if(tag === currentTag) {
             currentTag.classList.toggle('bg-green-900')
             currentTag.classList.toggle('bg-primary')
@@ -45,23 +52,47 @@
                 lastTag = currentTag
             }
         }
+        startSearch()
+    }
+
+    function nextPage() {
+        currentPage =  currentPage + 1
+        console.log(`current page: #${currentPage}`)
+        startSearch()
+    }
+
+    async function startSearch() {
+
+        if(searchString.length < 1) {
+            currentPage = 1
+            businessCardArray = []
+        }
+        else {
+            let customURL
+
+            if (typeof currentTag?.id === 'string') {
+            customURL = `/api/searchMongo?tag=${encodeURIComponent(currentTag.id)}&searchString=${encodeURIComponent(searchString)}&page=${encodeURIComponent(currentPage)}`;
+            }
+            else {
+                customURL = `/api/searchMongo?tag=${encodeURIComponent('')}&searchString=${encodeURIComponent(searchString)}&page=${encodeURIComponent(currentPage)}`
+            }
+            //Request Business cards that match the search criteria
+            //Each business card should be requested in groups of 12 (pagination)
+            const response = await fetch(customURL, {method: 'GET'})
+            const data = await response.json(); // Parse the JSON from the response
+
+            businessCardArray = [...businessCardArray, ...(data.searchResults)]
+        }
 
     }
 
-    function startSearch() {
-
-    const customURL = `/api/searchMongo?tag=${encodeURIComponent(currentTag?.id)}&searchString=${encodeURIComponent(searchString)}`
-    //Request Business cards that match the search criteria
-    //Each business card should be requested in groups of 12 (pagination)
-    fetch(customURL, {method: 'GET'})
-    }
 
     onMount(() => {
         searchField.addEventListener("input", () => {
         clearTimeout(searchTimeout) // Clear previous timeout
 
         // Set a new timeout to call the function after 2 seconds
-        searchTimeout = setTimeout(startSearch, 1000)
+        searchTimeout = setTimeout(startSearch, 500)
         })
     })
 
@@ -132,13 +163,14 @@
 
     <div class="w-full flex-grow flex items-end pt-8">
         <div class="flex flex-wrap justify-center items-start">
+            {#each businessCardArray as bizCard}
             <div class=" font-mukta w-[450px] h-[390px] m-6 bg-lightgray border-4 border-secondary rounded-[20px] flex flex-col p-2">
                 <div class=" w-full h-[20%] flex justify-between items-center px-4 pr-6">
-                    <h1 class=" font-mukta font-semibold text-[30px]">HOLOHOLO SURF</h1>
-                    <p class=" font-mukta font-bold text-[26px] text-primary">Retail</p>
+                    <h1 class=" font-mukta font-semibold text-[30px]">{bizCard.name}</h1>
+                    <p class=" font-mukta font-bold text-[26px] text-primary">{bizCard.tag}</p>
                 </div>
                 <div class=" w-full h-[10%] px-4 mb-2">
-                    <p>3643 Baldwin Ave, Makawao, HI, United States, Hawaii</p>
+                    <a class=" hover:underline" href={bizCard.mapLink}>{bizCard.address}</a>
                 </div>
                 <div class="w-full px-2 mb-2">
                     <div class="w-full border-[2px] border-secondary rounded-full">
@@ -147,87 +179,21 @@
                 </div>
                 <div class=" w-full h-[70%] p-3">
                     <p class="w-full h-full">
-                        Our Hawaiian style surf shop is located in the heart of Makawao town.  We specialize in modern muumuu and aloha wear designed in house along side locally made accessories and surf craft.  Our goal is simple, greet customers with aloha and offer products that embody the spirit of our island surf culture.
+                        {bizCard.description}
                     </p>
                 </div>
             </div>
-            <div class=" font-mukta w-[450px] h-[390px] m-6 bg-lightgray border-4 border-secondary rounded-[20px] flex flex-col p-2">
-                <div class=" w-full h-[20%] flex justify-between items-center px-4 pr-6">
-                    <h1 class=" font-mukta font-semibold text-[30px]">HOLOHOLO SURF</h1>
-                    <p class=" font-mukta font-bold text-[26px] text-primary">Retail</p>
-                </div>
-                <div class=" w-full h-[10%] px-4 mb-2">
-                    <p>3643 Baldwin Ave, Makawao, HI, United States, Hawaii</p>
-                </div>
-                <div class="w-full px-2 mb-2">
-                    <div class="w-full border-[2px] border-secondary rounded-full">
-
-                    </div>
-                </div>
-                <div class=" w-full h-[70%] p-3">
-                    <p class="w-full h-full">
-                        Our Hawaiian style surf shop is located in the heart of Makawao town.  We specialize in modern muumuu and aloha wear designed in house along side locally made accessories and surf craft.  Our goal is simple, greet customers with aloha and offer products that embody the spirit of our island surf culture.
-                    </p>
-                </div>
-            </div>
-            <div class=" font-mukta w-[450px] h-[390px] m-6 bg-lightgray border-4 border-secondary rounded-[20px] flex flex-col p-2">
-                <div class=" w-full h-[20%] flex justify-between items-center px-4 pr-6">
-                    <h1 class=" font-mukta font-semibold text-[30px]">HOLOHOLO SURF</h1>
-                    <p class=" font-mukta font-bold text-[26px] text-primary">Retail</p>
-                </div>
-                <div class=" w-full h-[10%] px-4 mb-2">
-                    <p>3643 Baldwin Ave, Makawao, HI, United States, Hawaii</p>
-                </div>
-                <div class="w-full px-2 mb-2">
-                    <div class="w-full border-[2px] border-secondary rounded-full">
-
-                    </div>
-                </div>
-                <div class=" w-full h-[70%] p-3">
-                    <p class="w-full h-full">
-                        Our Hawaiian style surf shop is located in the heart of Makawao town.  We specialize in modern muumuu and aloha wear designed in house along side locally made accessories and surf craft.  Our goal is simple, greet customers with aloha and offer products that embody the spirit of our island surf culture.
-                    </p>
-                </div>
-            </div>
-            <div class=" font-mukta w-[450px] h-[390px] m-6 bg-lightgray border-4 border-secondary rounded-[20px] flex flex-col p-2">
-                <div class=" w-full h-[20%] flex justify-between items-center px-4 pr-6">
-                    <h1 class=" font-mukta font-semibold text-[30px]">HOLOHOLO SURF</h1>
-                    <p class=" font-mukta font-bold text-[26px] text-primary">Retail</p>
-                </div>
-                <div class=" w-full h-[10%] px-4 mb-2">
-                    <p>3643 Baldwin Ave, Makawao, HI, United States, Hawaii</p>
-                </div>
-                <div class="w-full px-2 mb-2">
-                    <div class="w-full border-[2px] border-secondary rounded-full">
-
-                    </div>
-                </div>
-                <div class=" w-full h-[70%] p-3">
-                    <p class="w-full h-full">
-                        Our Hawaiian style surf shop is located in the heart of Makawao town.  We specialize in modern muumuu and aloha wear designed in house along side locally made accessories and surf craft.  Our goal is simple, greet customers with aloha and offer products that embody the spirit of our island surf culture.
-                    </p>
-                </div>
-            </div>
-            <div class=" font-mukta w-[450px] h-[390px] m-6 bg-lightgray border-4 border-secondary rounded-[20px] flex flex-col p-2">
-                <div class=" w-full h-[20%] flex justify-between items-center px-4 pr-6">
-                    <h1 class=" font-mukta font-semibold text-[30px]">HOLOHOLO SURF</h1>
-                    <p class=" font-mukta font-bold text-[26px] text-primary">Retail</p>
-                </div>
-                <div class=" w-full h-[10%] px-4 mb-2">
-                    <p>3643 Baldwin Ave, Makawao, HI, United States, Hawaii</p>
-                </div>
-                <div class="w-full px-2 mb-2">
-                    <div class="w-full border-[2px] border-secondary rounded-full">
-
-                    </div>
-                </div>
-                <div class=" w-full h-[70%] p-3">
-                    <p class="w-full h-full">
-                        Our Hawaiian style surf shop is located in the heart of Makawao town.  We specialize in modern muumuu and aloha wear designed in house along side locally made accessories and surf craft.  Our goal is simple, greet customers with aloha and offer products that embody the spirit of our island surf culture.
-                    </p>
-                </div>
-            </div>
+            {/each}
           </div>
     </div>
+
+    {#if businessCardArray.length >= 1}
+    <div class="w-full h-[200px] flex justify-center items-center">
+        <button on:click={nextPage} class="w-[300px] h-[80px] bg-white rounded-[15px] text-[23px] text-darkgray font-mukta font-semibold border-[4px] border-secondary">
+            Load More
+        </button>
+    </div>
+    {/if}
+
 
 </div>

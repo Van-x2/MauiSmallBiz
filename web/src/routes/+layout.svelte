@@ -40,7 +40,7 @@
     </div>
   </div>
 
-  <div class=" z-20 absolute w-full h-full sm:hidden flex flex-col pointer-events-none">
+  <div class=" z-40 w-full h-full sm:hidden flex flex-col pointer-events-none fixed">
     <div bind:this={menuTop} class="w-full h-[80px] p-3 pointer-events-auto">
       <div class="w-full h-full flex justify-between items-center">
         <a href="/">

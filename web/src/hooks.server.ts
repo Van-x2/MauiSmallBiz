@@ -7,7 +7,7 @@ export async function handleError({ error }) {
 }
 
 //Connects to the database when the server starts
-connectToDatabase().catch(console.error)
+await connectToDatabase().catch(console.error)
 
 //Dev stuff
 if (import.meta.hot) {

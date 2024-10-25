@@ -100,7 +100,7 @@
 
 <div class="w-full h-full flex justify-center flex-col items-center">
 
-    <div class="-sm:fixed sm:w-[650px] -sm:w-[95%] sm:h-[300px] -sm:h-[110px] flex justify-center items-end top-[70px] z-20">
+    <div class="-sm:fixed sm:w-[650px] -sm:w-[95%] sm:h-[300px] -sm:h-[110px] flex justify-center items-end top-[70px] -sm:z-20">
 
     <div class="w-full h-full sm:px-4 relative">
 

@@ -14,7 +14,7 @@ export const GET: RequestHandler = async ({ url }) => {
     //collection = BizCards
     //Database = BizData
 
-    const client = getClient()
+    const client: any = await getClient()
 
     const db = client.db('BizData')
     const collection = db.collection('BizCards')

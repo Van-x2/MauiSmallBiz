@@ -12,7 +12,7 @@
 </script>
 
 <div class="w-screen h-screen flex flex-col overflow-x-hidden">
-  <div class=" top-0 w-full h-[160px] bg-gradient-to-b from-lightGreen via-lightGreen to-white px-4 py-4 z-10 -sm:absolute -sm:hidden">
+  <div class=" absolute top-0 w-full h-[160px] bg-gradient-to-b from-lightGreen via-lightGreen to-white px-4 py-4 z-10 -sm:absolute -sm:hidden">
     <div class="w-full h-[60%] flex justify-between">
       <div class="w-[420px] h-full flex items-center justify-start pl-8">
         <a href="/" class="font-leckerli text-primary text-[30px]">
@@ -83,10 +83,10 @@
 
   </div>
 
-  <div class=" absolute w-full h-[200px] bg-gradient-to-b from-lightGreen via-lightGreen to-white sm:hidden">
+  <div class=" fixed w-full h-[200px] bg-gradient-to-b from-lightGreen via-lightGreen to-white sm:hidden">
   </div>
 
-  <div class=" w-full flex-grow -sm:pt-[170px] sm:pt-[160px]">
+  <div class=" w-full flex-grow -sm:pt-[170px] sm:pt-[300px]">
     <slot />
   </div>
 </div>

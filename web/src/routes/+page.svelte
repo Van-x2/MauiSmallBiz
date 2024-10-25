@@ -98,9 +98,9 @@
 
 </script>
 
-<div class="w-full h-full flex justify-center flex-col items-center">
+<div class="w-full h-full flex justify-center flex-col items-center pointer-events-none">
 
-    <div class="-sm:fixed sm:w-[650px] -sm:w-[95%] sm:h-[300px] -sm:h-[110px] flex justify-center items-end top-[70px] -sm:z-20">
+    <div class="-sm:fixed sm:w-[650px] -sm:w-[95%] sm:h-[300px] -sm:h-[110px] flex justify-center items-end top-[70px] -sm:z-20 pointer-events-auto">
 
     <div class="w-full h-full sm:px-4 relative">
 
@@ -167,7 +167,7 @@
 
     </div>
 
-    <div class="w-full flex-grow flex items-end pt-8 -z-20 relative pointer-events-auto">
+    <div class="w-full flex-grow flex items-end pt-8 relative pointer-events-auto">
         <div class="flex flex-wrap justify-center items-start w-full">
             {#each businessCardArray as bizCard}
             <div class=" font-mukta w-[450px] h-[390px] m-6 bg-lightgray border-[3px] border-secondary rounded-[20px] flex flex-col p-2">
@@ -175,9 +175,16 @@
                     <h1 class=" font-mukta font-semibold text-[30px] -sm:text-[21px]">{bizCard.name}</h1>
                     <p class=" font-mukta font-bold text-[26px] -sm:text-[20px] text-primary">{bizCard.tag}</p>
                 </div>
+                {#if bizCard.website}
+                <div class=" w-full h-[10%] px-4 mb-2">
+                    <a class="hover:underline -sm:text-[13px]" href={bizCard.website}>{bizCard.website}</a>
+                </div> 
+                {/if}
+                {#if bizCard.address}
                 <div class=" w-full h-[10%] px-4 mb-2">
                     <a class="hover:underline -sm:text-[13px]" href={bizCard.mapLink}>{bizCard.address}</a>
                 </div>
+                {/if}
                 <div class="w-full px-2 mb-2">
                     <div class="w-full border-[1px] border-secondary rounded-full">
 

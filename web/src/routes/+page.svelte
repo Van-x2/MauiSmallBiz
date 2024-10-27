@@ -108,7 +108,6 @@
         });
     });
 
-
 </script>
 
 <div class="w-full h-full flex justify-center flex-col items-center pointer-events-none">

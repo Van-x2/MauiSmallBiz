@@ -9,7 +9,7 @@ export const GET: RequestHandler = async ({ url }) => {
     const page: any = url.searchParams.get('page') || ''
 
     //sanitize search string
-    let searchStringSanitized = searchString
+    let searchStringSanitized = (searchString.replace(/[^a-z0-9áéíóúñü_-\s\.,]/gim,"").trim())
 
     //collection = BizCards
     //Database = BizData
@@ -24,7 +24,7 @@ export const GET: RequestHandler = async ({ url }) => {
     const skip = (page -1) * resultsPerPage
 
     const query: any = {
-        $text: { $search: searchString }
+        $text: { $search: searchStringSanitized }
       }
     
       if (tag.length >= 1) {

@@ -24,7 +24,7 @@ export async function connectToDatabase() {
 
 export async function getClient() {
     if (!client) {
-        throw new Error('Call connectToDatabasefirst')
+        return connectToDatabase()
     }
     return client
 }

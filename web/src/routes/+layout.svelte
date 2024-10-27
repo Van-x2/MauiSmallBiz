@@ -86,7 +86,7 @@
   <div class=" z-20 fixed w-full h-[200px] bg-gradient-to-b from-lightGreen via-lightGreen to-white sm:hidden">
   </div>
 
-  <div class=" w-full flex-grow -sm:pt-[170px] sm:pt-[300px]">
+  <div class=" w-full flex-grow -sm:pt-[170px] sm:pt-[150px]">
     <slot />
   </div>
 </div>

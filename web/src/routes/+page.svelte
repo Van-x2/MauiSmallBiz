@@ -5,7 +5,7 @@
 </svelte:head>
 
 <script lang="ts">
-    import { onMount } from "svelte";
+    import { onMount, onDestroy } from "svelte";
     import loadingGIF from '../media/loading.gif'
 
     let loading = false
@@ -99,13 +99,19 @@
 
 
     onMount(() => {
-        searchField.addEventListener("input", () => {
-        clearTimeout(searchTimeout) // Clear previous timeout
+        // Disable body scroll
+        document.body.style.overflow = 'hidden';
 
-        // Set a new timeout to call the function after 2 seconds
-        searchTimeout = setTimeout(startSearch, 500)
-        })
-    })
+        searchField.addEventListener("input", () => {
+            clearTimeout(searchTimeout); // Clear previous timeout
+            searchTimeout = setTimeout(startSearch, 500);
+        });
+    });
+
+    onDestroy(() => {
+        // Enable body scroll again when component is destroyed
+        document.body.style.overflow = 'auto';
+    });
 
 </script>
 
@@ -178,7 +184,7 @@
 
     </div>
 
-    <div class="w-full flex-grow flex items-end pt-8 relative pointer-events-auto">
+    <div class="w-full flex-grow flex items-end pt-8 relative pointer-events-auto overflow-y-auto">
         <div class="flex flex-wrap justify-center items-start w-full">
             {#each businessCardArray as bizCard}
             <div class=" font-mukta w-[450px] h-[390px] m-6 bg-lightgray border-[3px] border-secondary rounded-[20px] flex flex-col p-2">

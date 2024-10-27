@@ -1,5 +1,14 @@
+<svelte:head>
+    <title>
+        Maui Small Biz - Search
+    </title>
+</svelte:head>
+
 <script lang="ts">
     import { onMount } from "svelte";
+    import loadingGIF from '../media/loading.gif'
+
+    let loading = false
 
     //Tags
     let currentTag:any = null
@@ -62,6 +71,8 @@
     }
 
     async function startSearch() {
+        
+        loading = true
 
         if(searchString.length < 1) {
             currentPage = 1
@@ -83,7 +94,7 @@
 
             businessCardArray = [...businessCardArray, ...(data.searchResults)]
         }
-
+        loading = false
     }
 
 
@@ -131,7 +142,7 @@
             <p class="w-full text-center mt-1 font-mukta font-semibold text-darkgray sm:hidden">
                 Use keywords or select a tag to narrow results.
             </p>
-            <div class="w-full h-[45%] flex items-center">
+            <div class="w-full h-[45%] sm:h-[38%] flex items-center">
                 <div class=" h-3/4 w-1/4 py-[2px] px-[7px] -sm:px-[5px] ">
                     <button class="w-full h-full" on:click={() => {updateTags(retailTag)}}>
                         <div id="retailTag" bind:this={retailTag} class="w-full h-full bg-primary sm:rounded-[16px] -sm:rounded-[9px] text-white sm:text-[18px] -sm:text-[14px]  flex items-center justify-center font-mukta transition-all duration-100">
@@ -201,13 +212,20 @@
             {/each}
         </div>
     </div>
+    
 
     {#if businessCardArray.length >= 1}
-    <div class="w-full h-[200px] flex justify-center items-center pointer-events-auto">
-        <button on:click={nextPage} class="w-[200px] h-[60px] bg-white rounded-[15px] text-[20px] -sm:text-[15px] text-darkgray font-mukta font-semibold border-[3px] -sm:border-[2px] border-secondary">
-            Load More
-        </button>
-    </div>
+        {#if loading === true}
+        <div class="w-full h-[200px] flex justify-center items-center pointer-events-auto">
+                <img alt="loading icon" src={loadingGIF} />
+        </div>
+        {:else}
+        <div class="w-full h-[200px] flex justify-center items-center pointer-events-auto">
+            <button on:click={nextPage} class="w-[200px] h-[60px] bg-white rounded-[15px] text-[20px] -sm:text-[15px] text-darkgray font-mukta font-semibold border-[3px] -sm:border-[2px] border-secondary">
+                Load More
+            </button>
+        </div>
+        {/if}
     {/if}
 
 

@@ -108,10 +108,6 @@
         });
     });
 
-    onDestroy(() => {
-        // Enable body scroll again when component is destroyed
-        document.body.style.overflow = 'auto';
-    });
 
 </script>
 

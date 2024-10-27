@@ -218,7 +218,7 @@
     {#if businessCardArray.length >= 1}
         {#if loading === true}
         <div class="w-full h-[200px] flex justify-center items-center pointer-events-auto">
-                <img alt="loading icon" src={loadingGIF} />
+                <img alt="loading icon" src={loadingGIF} class="-translate-y-8"/>
         </div>
         {:else}
         <div class="w-full h-[200px] flex justify-center items-center pointer-events-auto">

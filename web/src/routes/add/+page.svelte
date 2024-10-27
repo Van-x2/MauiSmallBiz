@@ -6,6 +6,11 @@
 
 <script>
     import QRcode from '../../media/BizFormQR.png'
+    import { onMount } from 'svelte';
+    onMount(() => {
+        // Enable body scroll again when component is destroyed
+        document.body.style.overflow = 'auto';
+    });
 </script>
 
 <div class="w-full h-full flex justify-center pt-12">

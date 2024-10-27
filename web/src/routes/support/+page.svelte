@@ -4,6 +4,15 @@
     </title>
 </svelte:head>
 
+<script>
+    import { onMount } from "svelte";
+
+    onMount(() => {
+        // Enable body scroll again when component is destroyed
+        document.body.style.overflow = 'auto';
+    });
+</script>
+
 <div class="w-full h-full flex justify-center pt-12">
     <div class="w-[500px] h-[600px] -sm:w-full -sm:h-full flex flex-col items-center sm:pt-12 -sm:p-6">
 

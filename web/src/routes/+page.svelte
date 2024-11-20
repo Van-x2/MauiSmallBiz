@@ -187,7 +187,7 @@
 
                     <h1 class=" font-mukta font-semibold text-[25px] -sm:text-[21px] flex-grow text-wrap">{bizCard.name}</h1>
 
-                    <p class=" font-mukta font-bold text-[26px] -sm:text-[20px] text-primary mx-4">{bizCard.tag}</p>
+                    <p class=" font-mukta font-bold text-[26px] -sm:text-[20px] text-primary mx-4">{bizCard.tag.toUpperCase()}</p>
                 </div>
                 {#if bizCard.website}
                 <div class=" w-full h-[10%] px-4 mb-2 overflow-hidden text-nowrap">

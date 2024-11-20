@@ -1,6 +1,6 @@
 <svelte:head>
     <title>
-        Maui Small Biz - Add Business
+        Maui Biz Showcase - Add Business
     </title>
 </svelte:head>
 

@@ -16,7 +16,7 @@
 <div class="w-full h-full flex justify-center pt-12">
     <div class="w-[450px] h-[600px] -sm:w-full -sm:h-full flex flex-col items-center -sm:p-4">
         <div class="w-[45%] aspect-square rounded-[20px] bg-white mb-2 p-2 border-primary border-[3px]">
-            <img src={QRcode} alt="QR code linking to the business application form" class="w-full h-full" />
+            <img src={QRcode} alt="QR code linking to the business application form" class="w-full h-full pointer-events-none" />
         </div>
 
         <div class="w-full flex-grow">

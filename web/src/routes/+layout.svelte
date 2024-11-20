@@ -23,8 +23,8 @@
     <div class="w-full h-[60%] flex justify-between">
       <div class="w-[420px] h-full flex items-center justify-start pl-8">
         <a href="/" class="font-leckerli text-primary text-[35px]">
-          <h1 class=" -lg:absolute -lg:hidden">Maui Small Business</h1>
-          <h1 class=" lg:absolute lg:hidden">MSB</h1>
+          <h1 class=" -lg:absolute -lg:hidden">Maui Business Showcase</h1>
+          <h1 class=" lg:absolute lg:hidden">MBS</h1>
         </a>
       </div>
       <div class="w-[600px] h-full flex">
@@ -51,7 +51,7 @@
     <div bind:this={menuTop} class="w-full h-[80px] p-3 pointer-events-auto">
       <div class="w-full h-full flex justify-between items-center">
         <button on:click={() => {navigate('/')}}>
-          <p class="font-leckerli text-primary text-[45px]">MSB</p>
+          <p class="font-leckerli text-primary text-[45px]">MBS</p>
         </button>
         <div class="h-full aspect-square flex justify-center items-center">
           <button on:click={toggleMenu} class="flex justify-center items-center">

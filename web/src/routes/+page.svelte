@@ -1,6 +1,6 @@
 <svelte:head>
     <title>
-        Maui Small Biz - Search
+        Maui Biz Showcase - Search
     </title>
 </svelte:head>
 
